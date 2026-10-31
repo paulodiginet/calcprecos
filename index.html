@@ -269,7 +269,7 @@ details.cfg[open]{padding-bottom:18px}
               <div class="f" id="fIcmsPct"><label for="icmsPct">Percentual sobre a nota</label><div class="inp"><input id="icmsPct" inputmode="decimal"><span class="suf">%</span></div></div>
               <div class="f" id="fIcmsReal" hidden><label for="icmsReal">Valor pago na guia</label><div class="inp"><span>R$</span><input id="icmsReal" inputmode="decimal"></div></div>
             </div>
-            <p class="hint">Média das últimas notas: <b>3,7%</b>. Varia de 1,8% a 8,6% conforme o produto.</p>
+            <p class="hint">Referência: <b>4%</b> (média das notas de outubro/2026: 3,7%, variando de 1,8% a 8,6% conforme o produto). O valor digitado fica salvo.</p>
           </div>
         </section>
 
@@ -322,11 +322,10 @@ details.cfg[open]{padding-bottom:18px}
         <section class="blk">
           <h2><span class="dot" style="background:var(--yellow)"></span>Logística</h2>
           <div class="fields">
-            <div class="f"><label for="s_viagem">Uber / motoboy por viagem</label><div class="inp"><span>R$</span><input id="s_viagem" inputmode="decimal"></div></div>
-            <div class="f"><label for="s_nviagens">Número de viagens</label><div class="inp"><input id="s_nviagens" inputmode="numeric"></div></div>
+            <div class="f"><label for="s_viagem">Uber / motoboy</label><div class="inp"><span>R$</span><input id="s_viagem" inputmode="decimal"></div></div>
             <div class="f"><label for="s_entrega">Entrega ao cliente</label><div class="inp"><span>R$</span><input id="s_entrega" inputmode="decimal"></div></div>
           </div>
-          <p class="hint">Levar arquivo, buscar o serviço e voltar costumam ser duas viagens. Se a entrega for cobrada à parte do cliente, deixe zero.</p>
+          <p class="hint">Some todas as corridas do pedido (levar arquivo, buscar o serviço). Se a entrega for cobrada à parte do cliente, deixe zero.</p>
         </section>
 
         <section class="blk fixed">
@@ -412,19 +411,26 @@ details.cfg[open]{padding-bottom:18px}
   // Exemplos que aparecem ao abrir (não são dados reais)
   const EXEMPLO = {
     nome:'Caneta metal (exemplo)',custo:'1,80',qtd:'300',ipi:'0',galvo:'0',larg:'5',alt:'3',apl:'1',perda:'10',uber:'10',
-    frete:'120',motorista:'30',outros:'0',icmsPct:'3,7',icmsReal:'0',markup:'2,5',preco:'4,50',
-    s_nome:'1 mil cartões de visita 4x4 couchê 300g (exemplo)',s_parceiro:'',s_custo:'95',s_qtd:'',s_viagem:'12',s_nviagens:'2',s_entrega:'0',s_markup:'2,2',s_preco:'220'
+    frete:'120',motorista:'30',outros:'0',icmsReal:'0',markup:'2,5',preco:'4,50',
+    s_nome:'1 mil cartões de visita 4x4 couchê 300g (exemplo)',s_parceiro:'',s_custo:'95',s_qtd:'',s_viagem:'24',s_entrega:'0',s_markup:'2,2',s_preco:'220'
   };
   // Configurações salvas no navegador
-  const CFG_DEF = {b_comissao:'5',b_imp:'6',b_limBad:'10',b_limOk:'20',s_comissao:'5',s_imp:'9',s_limBad:'15',s_limOk:'25',
+  const CFG_DEF = {b_comissao:'5',b_imp:'7',b_limBad:'10',b_limOk:'20',s_comissao:'5',s_imp:'10',s_limBad:'15',s_limOk:'25',icmsPct:'4',
     m2uv:'150',m2tx:'80',taxDeb:'1,99',taxCred:'3,99',taxParc:'4,49'};
-  const CFG_KEYS = ['b_comissao','b_imp','b_limBad','b_limOk','s_comissao','s_imp','s_limBad','s_limOk','taxDeb','taxCred','taxParc'];
+  const CFG_KEYS = ['icmsPct','b_comissao','b_imp','b_limBad','b_limOk','s_comissao','s_imp','s_limBad','s_limOk','taxDeb','taxCred','taxParc'];
   let cfg = Object.assign({},CFG_DEF);
   try{
     const old=JSON.parse(localStorage.getItem('dg-brindes-cfg')||'null');
     if(old){ const map={comissao:'b_comissao',impVenda:'b_imp',limBad:'b_limBad',limOk:'b_limOk'};
       Object.keys(old).forEach(k=>{ cfg[map[k]||k]=old[k]; }); }
     const s=JSON.parse(localStorage.getItem('dg-precificacao-cfg')||'null'); if(s) Object.assign(cfg,s);
+    // migração v09: atualiza os impostos antigos salvos (6% e 9%) para 7% e 10%
+    if(!localStorage.getItem('dg-precificacao-v09')){
+      if(String(cfg.b_imp)==='6') cfg.b_imp='7';
+      if(String(cfg.s_imp)==='9') cfg.s_imp='10';
+      localStorage.setItem('dg-precificacao-v09','1');
+      localStorage.setItem('dg-precificacao-cfg',JSON.stringify(cfg));
+    }
   }catch(e){}
   const saveCfg = () => { try{ localStorage.setItem('dg-precificacao-cfg',JSON.stringify(cfg)); }catch(e){} };
 
@@ -503,7 +509,7 @@ details.cfg[open]{padding-bottom:18px}
     const st=state.s;
     const q = Math.max(0,Math.round(num('s_qtd')));
     const parceiro = num('s_custo');
-    const logist = num('s_viagem')*Math.max(0,num('s_nviagens')) + num('s_entrega');
+    const logist = num('s_viagem') + num('s_entrega');
     const venda = st.modo==='markup' ? parceiro*num('s_markup') : num('s_preco');
     $('modoHint-s').innerHTML = st.modo==='markup'
       ? 'Preço = custo do parceiro ('+brl(parceiro)+') × '+fmtIn(num('s_markup'))+'. O lucro real ao lado já desconta logística, comissão, imposto e taxa.'
@@ -598,7 +604,7 @@ details.cfg[open]{padding-bottom:18px}
   $('btnNovo').addEventListener('click',()=>{
     if(state.tab==='s'){
       ['s_nome','s_parceiro','s_custo','s_qtd','s_preco','s_entrega'].forEach(id=>$(id).value='');
-      $('s_nviagens').value='2'; calc(); $('s_custo').focus();
+      calc(); $('s_custo').focus();
     } else {
       ['nome','custo','qtd','preco','frete','motorista','outros','icmsReal','larg','alt'].forEach(id=>$(id).value='');
       $('ipi').value='0'; $('galvo').value='0'; $('apl').value='1'; calc(); $('custo').focus();
