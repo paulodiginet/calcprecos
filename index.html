@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: abas no topo; entradas à esquerda em blocos, resultado fixo à direita; no celular, uma coluna com barra de lucro no rodapé. */
 :root{
@@ -25,7 +25,8 @@
   --warn:#a86b00; --warn-bg:#fdf1d6;
   --bad:#c0262d; --bad-bg:#fbe5e6;
   --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
-  --f-body:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-num:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --radius:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -50,13 +51,22 @@ img{max-width:100%}
 [hidden]{display:none!important}
 .f.key label{color:var(--fg);font-weight:600}
 .f.key .inp{background:var(--cyan-soft);border:1.5px solid var(--cyan)}
-.f.key .inp input{font-weight:600;font-size:17px}
+.f.key .inp input{font-weight:600;font-size:18px}
 section.blk.main{border-top:3px solid var(--cyan)}
-section.blk.fixed{background:var(--surface-2);border-style:dashed}
-section.blk.fixed .inp{background:var(--surface)}
-section.blk.fixed .inp input{color:var(--muted)}
-section.blk.fixed h2{color:var(--muted)}
-body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.45;
+details.blk.fixed{background:var(--surface-2);padding:0}
+details.blk.fixed>summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;gap:10px}
+details.blk.fixed>summary::-webkit-details-marker{display:none}
+details.blk.fixed>summary h2{margin:0;flex:1;flex-wrap:nowrap;align-items:baseline}
+details.blk.fixed>summary h2 .dot{align-self:center}
+details.blk.fixed>summary .sumv{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+details.blk.fixed>summary::after{content:'';width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin:-4px 4px 0 6px;transition:transform .15s;flex:none}
+details.blk.fixed[open]>summary::after{transform:rotate(-135deg);margin-top:4px}
+details.blk.fixed>.body{padding:0 18px 18px}
+details.blk.fixed[open]>summary .sumv{display:none}
+details.blk.fixed .inp{background:var(--surface)}
+details.blk.fixed .inp input{color:var(--fg)}
+details.blk.fixed h2{color:var(--muted)}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 96px}
 .wrap{max-width:1180px;margin:0 auto}
 
@@ -67,7 +77,7 @@ header.top img{height:58px;width:auto}
 .ttl{font-family:var(--f-display);font-weight:600;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right}
 
 .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto}
-.tabs button{border:0;background:transparent;color:var(--muted);font:600 18px var(--f-display);letter-spacing:.06em;text-transform:uppercase;
+.tabs button{border:0;background:transparent;color:var(--muted);font:600 19px var(--f-display);letter-spacing:.06em;text-transform:uppercase;
   padding:10px 16px 12px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}
 .tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--tabc,var(--cyan))}
 .tabs button:hover{color:var(--fg)}
@@ -76,25 +86,32 @@ header.top img{height:58px;width:auto}
 @media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
 
 .col,.pane{display:flex;flex-direction:column;gap:16px;min-width:0}
-section.blk{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-.blk h2{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.09em;text-transform:uppercase;margin:0 0 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+section.blk,details.blk{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.blk h2{font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:.09em;text-transform:uppercase;margin:0 0 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .blk h2 .dot{width:10px;height:10px;border-radius:2px;flex:none}
-.blk h2 small{margin-left:auto;font-family:var(--f-body);font-weight:400;letter-spacing:0;text-transform:none;font-size:13px;color:var(--muted)}
+.blk h2 small{margin-left:auto;font-family:var(--f-body);font-weight:400;letter-spacing:0;text-transform:none;font-size:13.5px;color:var(--muted)}
 
-.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 14px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 14px;align-items:end}
 .f{display:flex;flex-direction:column;gap:5px;min-width:0}
 .f.wide{grid-column:1/-1}
-.f label{font-size:13px;font-weight:500;color:var(--muted)}
+.fields.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.seg.mini{padding:2px;gap:2px;border-radius:7px;flex-wrap:nowrap}
+.seg.mini button{font-size:13px;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.seg.mini button[aria-pressed="true"]{background:var(--cyan);color:var(--surface);box-shadow:none}
+#pane-s .seg.mini button[aria-pressed="true"]{background:var(--magenta)}
+@media (max-width:600px){.fields.three{grid-template-columns:1fr 1fr}.fields.three .modo{grid-column:1/-1}.fields.three>.f[style]{grid-column:1/-1!important}}
+.f label{font-size:14px;font-weight:500;color:var(--muted)}
 .inp{display:flex;align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;transition:border-color .15s}
 .inp:focus-within{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-soft)}
-.inp span{padding:0 0 0 10px;color:var(--muted);font-size:14px;white-space:nowrap}
-.inp span.suf{padding:0 10px 0 0}
-.inp input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:500 16px var(--f-body);padding:9px 10px;outline:none;font-variant-numeric:tabular-nums}
-.hint{font-size:12.5px;color:var(--muted);margin:10px 0 0}
+.inp span{padding:0 0 0 12px;color:var(--muted);font-size:15px;white-space:nowrap}
+.inp span.suf{padding:0 12px 0 0}
+.inp input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:500 16px var(--f-body);padding:11px 12px;outline:none;font-variant-numeric:tabular-nums}
+.hint{font-size:13.5px;line-height:1.5;color:var(--muted);margin:10px 0 0}
 .hint b{color:var(--fg);font-weight:600}
+.hint:empty{display:none}
 
 .seg{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:3px;gap:3px;flex-wrap:wrap}
-.seg button{flex:1 1 auto;border:0;background:transparent;color:var(--muted);font:600 14px var(--f-body);padding:8px 10px;border-radius:6px;cursor:pointer;min-width:0}
+.seg button{flex:1 1 auto;border:0;background:transparent;color:var(--muted);font:600 15px var(--f-body);padding:9px 10px;border-radius:6px;cursor:pointer;min-width:0}
 .seg button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.12)}
 .seg button:focus-visible,.btn:focus-visible,summary:focus-visible,.tabs button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .sub{margin-top:14px}
@@ -102,12 +119,12 @@ section.blk{background:var(--surface);border:1px solid var(--line);border-radius
 aside.res{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:flex;flex-direction:column;gap:14px;min-width:0}
 @media (max-width:900px){aside.res{position:static}}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-.kicker{font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.price{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.kicker{font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.price{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:8px}
 .price div{min-width:0}
-.big{font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1.05;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.mid{font-family:var(--f-display);font-weight:600;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.lbl{font-size:12.5px;color:var(--muted)}
+.big{font-family:var(--f-num);font-weight:700;font-size:32px;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mid{font-family:var(--f-num);font-weight:600;font-size:22px;letter-spacing:-.01em;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lbl{font-size:13.5px;color:var(--muted)}
 
 .profit{border-radius:var(--radius);padding:18px;border:1px solid transparent}
 .profit.ok{background:var(--ok-bg);border-color:var(--ok)}
@@ -117,38 +134,40 @@ aside.res{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:
 .pill{display:inline-flex;align-items:center;gap:6px;font:700 12px var(--f-body);letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:99px;color:var(--surface)}
 .ok .pill{background:var(--ok)} .warn .pill{background:var(--warn)} .bad .pill{background:var(--bad)}
 .ok .tone{color:var(--ok)} .warn .tone{color:var(--warn)} .bad .tone{color:var(--bad)}
-.profit p{margin:10px 0 0;font-size:13.5px}
+.profit p{margin:10px 0 0;font-size:14.5px}
 .scale{margin-top:14px}
 .scale .track{position:relative;display:flex;height:10px;border-radius:5px;overflow:visible}
 .scale .track i{display:block;height:100%}
 .scale .track i:first-child{border-radius:5px 0 0 5px}
 .scale .track i:nth-child(3){border-radius:0 5px 5px 0}
 .scale .mk{position:absolute;top:-5px;width:4px;height:20px;margin-left:-2px;border-radius:2px;background:var(--fg);box-shadow:0 0 0 2px var(--surface);transition:left .2s}
-.scale .ticks{position:relative;height:16px;margin-top:5px;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.scale .ticks{position:relative;height:16px;margin-top:5px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 .scale .ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
 .scale .ticks span.l0{transform:none}
-.scale .leg{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:4px}
+.scale .leg{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:4px}
 
 .bar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--surface-2);margin:12px 0 10px}
 .bar i{display:block;height:100%}
-table.br{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
-.br td{padding:6px 0;border-bottom:1px solid var(--line)}
+table.br{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}
+.br td{padding:8px 0;border-bottom:1px solid var(--line)}
 .br td:nth-child(2),.br td:nth-child(3){text-align:right;white-space:nowrap;padding-left:10px}
-.br td:nth-child(3){color:var(--muted);width:52px}
-.br tr.tot td{font-weight:600;border-bottom:0;padding-top:9px}
+.br td:nth-child(2){font-weight:500}
+.br td:nth-child(3){color:var(--muted);width:58px}
+.br tr.tot td{font-weight:700;border-bottom:0;border-top:2px solid var(--fg);padding-top:10px}
 .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px;vertical-align:baseline}
 .br tr.zero{display:none}
 
-.target{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:13.5px;padding-top:10px;margin-top:10px;border-top:1px dashed var(--line)}
-.target b{font-variant-numeric:tabular-nums}
+.target{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:nowrap;font-size:14.5px;padding-top:12px;margin-top:12px;border-top:1px solid var(--line)}
+.target span{min-width:0}
+.target b{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
 .target + .target{border-top:0;margin-top:0;padding-top:4px}
 
 .actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{flex:1 1 auto;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:600 14px var(--f-body);padding:10px 14px;border-radius:8px;cursor:pointer}
+.btn{flex:1 1 auto;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:600 15px var(--f-body);padding:12px 16px;border-radius:8px;cursor:pointer}
 .btn.primary{background:var(--cyan);border-color:var(--cyan);color:#fff}
 :root[data-theme="dark"] .btn.primary{color:#0d1a20}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#0d1a20}}
-.toast{font-size:13px;color:var(--ok);min-height:18px}
+.toast{font-size:14px;color:var(--ok);min-height:18px}
 
 details.cfg{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:4px 18px}
 details.cfg summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:14px;color:var(--muted)}
@@ -160,6 +179,11 @@ details.cfg[open]{padding-bottom:18px}
     background:var(--surface);border-top:1px solid var(--line);
     padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
   .mbar .mid{font-size:22px}
+  .tabs button{font-size:16px;padding:10px 10px 12px}
+  .big{font-size:28px}
+  details.blk.fixed>summary{flex-wrap:wrap;row-gap:4px}
+  details.blk.fixed>summary h2{flex:1 1 0}
+  details.blk.fixed>summary .sumv{order:3;flex-basis:100%;text-align:left;padding-left:20px}
   header.top img{height:46px}
   .ttl{text-align:left}
   .cmyk{margin-left:0}
@@ -194,23 +218,21 @@ details.cfg[open]{padding-bottom:18px}
       <!-- ===================== BRINDES ===================== -->
       <div class="pane" id="pane-b" role="tabpanel" aria-labelledby="tab-b">
         <section class="blk main">
-          <h2><span class="dot" style="background:var(--cyan)"></span>Produto e venda <small>preencha sempre</small></h2>
-          <div class="fields">
+          <h2><span class="dot" style="background:var(--cyan)"></span>Produto e venda</h2>
+          <div class="fields three">
             <div class="f wide"><label for="nome">Nome do produto</label><div class="inp"><input id="nome" type="text" placeholder="Ex.: Caneta metal ER143B"></div></div>
-            <div class="f key"><label for="custo">Custo unitário (XBZ)</label><div class="inp"><span>R$</span><input id="custo" inputmode="decimal"></div></div>
+            <div class="f key"><label for="custo">Custo unitário</label><div class="inp"><span>R$</span><input id="custo" inputmode="decimal"></div></div>
             <div class="f key"><label for="qtd">Quantidade</label><div class="inp"><input id="qtd" inputmode="numeric"><span class="suf">un</span></div></div>
-          </div>
-          <div class="sub">
-            <div class="seg" role="group" aria-label="Como calcular" id="segModo-b">
-              <button type="button" data-v="markup">Tenho o markup</button>
-              <button type="button" data-v="preco">Tenho o preço de venda</button>
+            <div class="f key modo">
+              <div class="seg mini" role="group" aria-label="Calcular por markup ou por preço" id="segModo-b">
+                <button type="button" data-v="markup">Markup</button>
+                <button type="button" data-v="preco">Preço un.</button>
+              </div>
+              <div id="fMarkup-b"><div class="inp"><input id="markup" inputmode="decimal" aria-label="Markup sobre o produto"><span class="suf">×</span></div></div>
+              <div id="fPreco-b" hidden><div class="inp"><span>R$</span><input id="preco" inputmode="decimal" aria-label="Preço de venda unitário"></div></div>
             </div>
-            <div class="fields" style="margin-top:12px">
-              <div class="f key" id="fMarkup-b"><label for="markup">Markup sobre o produto</label><div class="inp"><input id="markup" inputmode="decimal"><span class="suf">×</span></div></div>
-              <div class="f key" id="fPreco-b" hidden><label for="preco">Preço de venda unitário</label><div class="inp"><span>R$</span><input id="preco" inputmode="decimal"></div></div>
-            </div>
-            <p class="hint" id="modoHint-b"></p>
           </div>
+          <p class="hint" id="modoHint-b"></p>
           <div class="sub">
             <div class="f"><label>Forma de pagamento do cliente</label></div>
             <div class="seg" role="group" aria-label="Forma de pagamento" id="segPag-b" style="margin-top:6px">
@@ -235,7 +257,7 @@ details.cfg[open]{padding-bottom:18px}
             <div class="fields">
               <div class="f"><label for="galvo">Custo por peça</label><div class="inp"><span>R$</span><input id="galvo" inputmode="decimal"></div></div>
             </div>
-            <p class="hint">Feita aqui na gráfica. Deixe zero se não quiser considerar custo extra.</p>
+            
           </div>
           <div id="boxDtf" class="sub" hidden>
             <div class="fields">
@@ -258,7 +280,7 @@ details.cfg[open]{padding-bottom:18px}
             <div class="f"><label for="outros">Outros custos</label><div class="inp"><span>R$</span><input id="outros" inputmode="decimal"></div></div>
             <div class="f"><label for="ipi">IPI da nota</label><div class="inp"><input id="ipi" inputmode="decimal"><span class="suf">%</span></div></div>
           </div>
-          <p class="hint">A maioria dos itens vem sem IPI. Quando a nota destaca IPI (ex.: kit executivo, 9,75%), preencha para não subestimar o custo.</p>
+          <p class="hint">Só quando a nota destacar IPI (ex.: kit executivo, 9,75%).</p>
           <div class="sub">
             <div class="f"><label>ICMS antecipado (guia DAE do Ceará)</label></div>
             <div class="seg" role="group" aria-label="Forma do ICMS" id="segIcms" style="margin-top:6px">
@@ -269,44 +291,43 @@ details.cfg[open]{padding-bottom:18px}
               <div class="f" id="fIcmsPct"><label for="icmsPct">Percentual sobre a nota</label><div class="inp"><input id="icmsPct" inputmode="decimal"><span class="suf">%</span></div></div>
               <div class="f" id="fIcmsReal" hidden><label for="icmsReal">Valor pago na guia</label><div class="inp"><span>R$</span><input id="icmsReal" inputmode="decimal"></div></div>
             </div>
-            <p class="hint">Referência: <b>4%</b> (média das notas de outubro/2026: 3,7%, variando de 1,8% a 8,6% conforme o produto). O valor digitado fica salvo.</p>
+            <p class="hint">Referência: <b>4%</b> (notas de out/2026: média 3,7%, de 1,8% a 8,6%).</p>
           </div>
         </section>
 
-        <section class="blk fixed">
-          <h2><span class="dot" style="background:var(--muted)"></span>Valores fixos dos brindes <small>mudam raramente</small></h2>
+        <details class="blk fixed">
+          <summary><h2><span class="dot" style="background:var(--muted)"></span>Valores fixos dos brindes</h2><span class="sumv" id="sum-b"></span></summary>
+          <div class="body">
           <div class="fields">
             <div class="f"><label for="b_comissao">Comissão do vendedor</label><div class="inp"><input id="b_comissao" inputmode="decimal"><span class="suf">%</span></div></div>
             <div class="f"><label for="b_imp">Imposto da venda</label><div class="inp"><input id="b_imp" inputmode="decimal"><span class="suf">%</span></div></div>
             <div class="f"><label for="b_limBad">Vermelho abaixo de</label><div class="inp"><input id="b_limBad" inputmode="decimal"><span class="suf">%</span></div></div>
             <div class="f"><label for="b_limOk">Verde a partir de</label><div class="inp"><input id="b_limOk" inputmode="decimal"><span class="suf">%</span></div></div>
           </div>
-          <p class="hint">Entre vermelho e verde fica amarelo. O lucro real ainda não desconta aluguel, energia e salários.</p>
-        </section>
+          <p class="hint">Margem de contribuição: o que sobra para aluguel, energia, salários e lucro.</p>
+        </div>
+        </details>
       </div>
 
       <!-- ===================== SERVIÇOS ===================== -->
       <div class="pane" id="pane-s" role="tabpanel" aria-labelledby="tab-s" hidden>
-        <section class="blk main">
-          <h2><span class="dot" style="background:var(--magenta)"></span>Serviço e venda <small>preencha sempre</small></h2>
-          <div class="fields">
-            <div class="f wide"><label for="s_nome">Descrição do serviço</label><div class="inp"><input id="s_nome" type="text" placeholder="Ex.: 5 mil panfletos A5 4x4, couchê 90g"></div></div>
+        <section class="blk main" style="border-top-color:var(--magenta)">
+          <h2><span class="dot" style="background:var(--magenta)"></span>Serviço e venda</h2>
+          <div class="fields three">
+            <div class="f" style="grid-column:span 2"><label for="s_nome">Descrição do serviço</label><div class="inp"><input id="s_nome" type="text" placeholder="Ex.: 5 mil panfletos A5 4x4, couchê 90g"></div></div>
             <div class="f"><label for="s_parceiro">Parceiro</label><div class="inp"><input id="s_parceiro" type="text" placeholder="Nome da gráfica"></div></div>
             <div class="f key"><label for="s_custo">Custo total no parceiro</label><div class="inp"><span>R$</span><input id="s_custo" inputmode="decimal"></div></div>
+            <div class="f key modo">
+              <div class="seg mini" role="group" aria-label="Calcular por markup ou por preço" id="segModo-s">
+                <button type="button" data-v="markup">Markup</button>
+                <button type="button" data-v="preco">Preço total</button>
+              </div>
+              <div id="fMarkup-s"><div class="inp"><input id="s_markup" inputmode="decimal" aria-label="Markup sobre o custo do parceiro"><span class="suf">×</span></div></div>
+              <div id="fPreco-s" hidden><div class="inp"><span>R$</span><input id="s_preco" inputmode="decimal" aria-label="Preço de venda do pedido"></div></div>
+            </div>
             <div class="f"><label for="s_qtd">Quantidade (opcional)</label><div class="inp"><input id="s_qtd" inputmode="numeric" placeholder="em branco"><span class="suf">un</span></div></div>
           </div>
-          <p class="hint">Digite o valor do pedido fechado, como o parceiro cotou. A quantidade só serve se quiser ver o preço por unidade.</p>
-          <div class="sub">
-            <div class="seg" role="group" aria-label="Como calcular" id="segModo-s">
-              <button type="button" data-v="markup">Tenho o markup</button>
-              <button type="button" data-v="preco">Tenho o preço de venda</button>
-            </div>
-            <div class="fields" style="margin-top:12px">
-              <div class="f key" id="fMarkup-s"><label for="s_markup">Markup sobre o custo do parceiro</label><div class="inp"><input id="s_markup" inputmode="decimal"><span class="suf">×</span></div></div>
-              <div class="f key" id="fPreco-s" hidden><label for="s_preco">Preço de venda do pedido</label><div class="inp"><span>R$</span><input id="s_preco" inputmode="decimal"></div></div>
-            </div>
-            <p class="hint" id="modoHint-s"></p>
-          </div>
+                    <p class="hint" id="modoHint-s"></p>
           <div class="sub">
             <div class="f"><label>Forma de pagamento do cliente</label></div>
             <div class="seg" role="group" aria-label="Forma de pagamento" id="segPag-s" style="margin-top:6px">
@@ -325,30 +346,34 @@ details.cfg[open]{padding-bottom:18px}
             <div class="f"><label for="s_viagem">Uber / motoboy</label><div class="inp"><span>R$</span><input id="s_viagem" inputmode="decimal"></div></div>
             <div class="f"><label for="s_entrega">Entrega ao cliente</label><div class="inp"><span>R$</span><input id="s_entrega" inputmode="decimal"></div></div>
           </div>
-          <p class="hint">Some todas as corridas do pedido (levar arquivo, buscar o serviço). Se a entrega for cobrada à parte do cliente, deixe zero.</p>
+          <p class="hint">Total das corridas do pedido. Entrega cobrada à parte do cliente: deixe zero.</p>
         </section>
 
-        <section class="blk fixed">
-          <h2><span class="dot" style="background:var(--muted)"></span>Valores fixos dos serviços <small>mudam raramente</small></h2>
+        <details class="blk fixed">
+          <summary><h2><span class="dot" style="background:var(--muted)"></span>Valores fixos dos serviços</h2><span class="sumv" id="sum-s"></span></summary>
+          <div class="body">
           <div class="fields">
             <div class="f"><label for="s_comissao">Comissão do vendedor</label><div class="inp"><input id="s_comissao" inputmode="decimal"><span class="suf">%</span></div></div>
             <div class="f"><label for="s_imp">Imposto da nota</label><div class="inp"><input id="s_imp" inputmode="decimal"><span class="suf">%</span></div></div>
             <div class="f"><label for="s_limBad">Vermelho abaixo de</label><div class="inp"><input id="s_limBad" inputmode="decimal"><span class="suf">%</span></div></div>
             <div class="f"><label for="s_limOk">Verde a partir de</label><div class="inp"><input id="s_limOk" inputmode="decimal"><span class="suf">%</span></div></div>
           </div>
-          <p class="hint">Régua mais alta que a dos brindes porque o serviço consome mais tempo seu (briefing, arte, aprovação, ida ao parceiro).</p>
-        </section>
+          <p class="hint">Margem de contribuição: o que sobra para aluguel, energia, salários e lucro.</p>
+        </div>
+        </details>
       </div>
 
-      <section class="blk fixed">
-        <h2><span class="dot" style="background:var(--muted)"></span>Taxas do cartão <small>valem para as duas abas</small></h2>
+      <details class="blk fixed">
+        <summary><h2><span class="dot" style="background:var(--muted)"></span>Taxas do cartão</h2><span class="sumv" id="sum-c"></span></summary>
+          <div class="body">
         <div class="fields">
           <div class="f"><label for="taxDeb">Débito</label><div class="inp"><input id="taxDeb" inputmode="decimal"><span class="suf">%</span></div></div>
           <div class="f"><label for="taxCred">Crédito à vista</label><div class="inp"><input id="taxCred" inputmode="decimal"><span class="suf">%</span></div></div>
           <div class="f"><label for="taxParc">Parcelado 2 a 8x</label><div class="inp"><input id="taxParc" inputmode="decimal"><span class="suf">%</span></div></div>
         </div>
         <p class="hint">Iguais para Mastercard, Visa e Elo.</p>
-      </section>
+      </div>
+        </details>
     </div>
 
     <aside class="res" aria-live="polite">
@@ -362,7 +387,7 @@ details.cfg[open]{padding-bottom:18px}
 
       <div class="profit ok" id="pBox">
         <div class="row">
-          <div class="kicker">Lucro real</div>
+          <div class="kicker">Margem de contribuição</div>
           <span class="pill" id="pPill">Saudável</span>
         </div>
         <div class="price">
@@ -382,7 +407,7 @@ details.cfg[open]{padding-bottom:18px}
         <table class="br"><tbody id="rTable"></tbody></table>
         <div class="target"><span id="tgtLbl">Preço mínimo para ficar verde</span><b id="tgtVal">–</b></div>
         <div class="target"><span id="redLbl">Preço mínimo para sair do vermelho</span><b id="redVal">–</b></div>
-        <div class="target"><span>Ponto de equilíbrio (lucro zero)</span><b id="beVal">–</b></div>
+        <div class="target"><span>Ponto de equilíbrio (margem zero)</span><b id="beVal">–</b></div>
       </div>
 
       <div class="actions">
@@ -395,8 +420,8 @@ details.cfg[open]{padding-bottom:18px}
 </div>
 
 <div class="mbar ok" id="mBar">
-  <div><div class="lbl">Lucro real</div><div class="mid tone" id="mLucro">–</div></div>
-  <div style="text-align:right"><div class="lbl">Margem</div><div class="mid tone" id="mMargem">–</div></div>
+  <div><div class="lbl">Margem de contribuição</div><div class="mid tone" id="mLucro">–</div></div>
+  <div style="text-align:right"><div class="lbl">% da venda</div><div class="mid tone" id="mMargem">–</div></div>
 </div>
 
 <script>
@@ -410,9 +435,9 @@ details.cfg[open]{padding-bottom:18px}
 
   // Exemplos que aparecem ao abrir (não são dados reais)
   const EXEMPLO = {
-    nome:'Caneta metal (exemplo)',custo:'1,80',qtd:'300',ipi:'0',galvo:'0',larg:'5',alt:'3',apl:'1',perda:'10',uber:'10',
-    frete:'120',motorista:'30',outros:'0',icmsReal:'0',markup:'2,5',preco:'4,50',
-    s_nome:'1 mil cartões de visita 4x4 couchê 300g (exemplo)',s_parceiro:'',s_custo:'95',s_qtd:'',s_viagem:'24',s_entrega:'0',s_markup:'2,2',s_preco:'220'
+    nome:'',custo:'',qtd:'',ipi:'0',galvo:'0',larg:'5',alt:'3',apl:'1',perda:'10',uber:'10',
+    frete:'',motorista:'',outros:'0',icmsReal:'0',markup:'',preco:'',
+    s_nome:'',s_parceiro:'',s_custo:'',s_qtd:'',s_viagem:'',s_entrega:'',s_markup:'2',s_preco:''
   };
   // Configurações salvas no navegador
   const CFG_DEF = {b_comissao:'5',b_imp:'7',b_limBad:'10',b_limOk:'20',s_comissao:'5',s_imp:'10',s_limBad:'15',s_limOk:'25',icmsPct:'4',
@@ -498,8 +523,8 @@ details.cfg[open]{padding-bottom:18px}
     const pedido = num('frete')+num('motorista')+num('outros')+uber;
     const precoUn = st.modo==='markup' ? custoUn*num('markup') : num('preco');
     $('modoHint-b').innerHTML = st.modo==='markup'
-      ? 'Preço = custo do produto'+(num('ipi')>0?' com IPI':'')+' ('+brl(custoUn)+') × '+fmtIn(num('markup'))+'. O lucro real ao lado já desconta todos os outros custos.'
-      : 'Markup equivalente sobre o produto: <b>'+(custoUn>0?(precoUn/custoUn).toLocaleString('pt-BR',{maximumFractionDigits:2}):'–')+'×</b>';
+      ? ''
+      : (custoUn>0&&precoUn>0 ? 'Markup equivalente: <b>'+(precoUn/custoUn).toLocaleString('pt-BR',{maximumFractionDigits:2})+'×</b>' : '');
     return {t:'b',nome:$('nome').value||'Produto',q,unitMode:true,venda:precoUn*q,precoUn,
       fixos:[['produto','Produto'+(num('ipi')>0?' (com IPI)':''),produto],['icms','ICMS antecipado',icms],['pers',persNome,pers],['pedido','Frete, motorista'+(uber?', Uber':'')+' e outros',pedido]],
       com:num('b_comissao'),imp:num('b_imp'),impNome:'Imposto da venda',pag:st.pag,limBad:num('b_limBad'),limOk:num('b_limOk'),
@@ -512,8 +537,8 @@ details.cfg[open]{padding-bottom:18px}
     const logist = num('s_viagem') + num('s_entrega');
     const venda = st.modo==='markup' ? parceiro*num('s_markup') : num('s_preco');
     $('modoHint-s').innerHTML = st.modo==='markup'
-      ? 'Preço = custo do parceiro ('+brl(parceiro)+') × '+fmtIn(num('s_markup'))+'. O lucro real ao lado já desconta logística, comissão, imposto e taxa.'
-      : 'Markup equivalente sobre o parceiro: <b>'+(parceiro>0?(venda/parceiro).toLocaleString('pt-BR',{maximumFractionDigits:2}):'–')+'×</b>';
+      ? ''
+      : (parceiro>0&&venda>0 ? 'Markup equivalente: <b>'+(venda/parceiro).toLocaleString('pt-BR',{maximumFractionDigits:2})+'×</b>' : '');
     const parc = $('s_parceiro').value.trim();
     return {t:'s',nome:$('s_nome').value||'Serviço',q,unitMode:false,venda,precoUn:q>0?venda/q:0,
       fixos:[['parceiro','Parceiro'+(parc?' ('+parc+')':''),parceiro],['logist','Uber, motoboy e entrega',logist]],
@@ -521,8 +546,15 @@ details.cfg[open]{padding-bottom:18px}
       extraCopy:['Custo no parceiro: '+brl(parceiro)+(parc?' ('+parc+')':'')]};
   }
 
+  function sumFix(){
+    const p=id=>{const v=String($(id).value||'').trim(); return (v===''?'0':v)+'%';};
+    $('sum-b').textContent='comissão '+p('b_comissao')+' · imposto '+p('b_imp');
+    $('sum-s').textContent='comissão '+p('s_comissao')+' · imposto '+p('s_imp');
+    $('sum-c').textContent='déb. '+p('taxDeb')+' · créd. '+p('taxCred')+' · parc. '+p('taxParc');
+  }
   let last=null;
   function calc(){
+    sumFix();
     const m = state.tab==='s' ? modelS() : modelB();
     const tPct = taxaDe(m.pag), pagNome = PAG[m.pag];
     const base = m.fixos.reduce((a,r)=>a+r[2],0);
@@ -557,16 +589,16 @@ details.cfg[open]{padding-bottom:18px}
     const pill = {ok:'Saudável',warn:'Apertado',bad:lucro<0?'Prejuízo':'Abaixo do mínimo'}[stt];
     $('pBox').className='profit '+stt; $('pPill').textContent=pill;
     $('mBar').className='mbar '+stt; $('mLucro').textContent=brl(lucro); $('mMargem').textContent=pct(margem);
-    $('rLucroUn').innerHTML = (m.q>0?'Lucro por unidade: <b>'+brl(lucro/m.q)+'</b> · ':'')+'pagamento: <b>'+pagNome+'</b>';
+    $('rLucroUn').innerHTML = (m.q>0?'Margem por unidade: <b>'+brl(lucro/m.q)+'</b> · ':'')+'pagamento: <b>'+pagNome+'</b>';
 
     // pagamento
     const ph=$('pagHint-'+m.t);
-    if(m.pag==='pix'){ ph.innerHTML='Sem taxa de administradora.'; }
+    if(m.pag==='pix'){ ph.innerHTML=''; }
     else{
       const lucroPix = m.venda*(1-pc0)-base;
       const ref = m.unitMode?m.precoUn:m.venda;
       const eq = (1-pc0-tPct/100)>0 ? ref*(1-pc0)/(1-pc0-tPct/100) : NaN;
-      ph.innerHTML='Taxa de <b>'+pctS(tPct)+'</b> = '+brl(taxa)+' neste pedido. No Pix, o lucro seria '+brl(lucroPix)+'. Para manter esse lucro no '+pagNome.toLowerCase()+', cobre <b>'+(isFinite(eq)?brl(eq):'–')+'</b>'+(m.unitMode?' por unidade.':' no pedido.')+(m.pag==='parc'?' Cada parcela cai a cada 31 dias.':'');
+      ph.innerHTML='Taxa de '+tPct.toLocaleString('pt-BR',{maximumFractionDigits:2})+'% = '+brl(taxa)+'. Para manter a margem do Pix, cobre <b>'+(isFinite(eq)?brl(eq):'–')+'</b>'+(m.unitMode?' por unidade.':' no pedido.')+(m.pag==='parc'?' Parcelas caem a cada 31 dias.':'');
     }
 
     // tabela e barra
@@ -578,7 +610,7 @@ details.cfg[open]{padding-bottom:18px}
       tb.appendChild(tr);
     });
     const tr=document.createElement('tr'); tr.className='tot';
-    tr.innerHTML='<td><span class="sw" style="background:'+(lucro>=0?COLORS.lucro:'var(--bad)')+'"></span>Lucro real</td><td>'+brl(lucro)+'</td><td>'+(m.venda>0?pct(margem):'–')+'</td>';
+    tr.innerHTML='<td><span class="sw" style="background:'+(lucro>=0?COLORS.lucro:'var(--bad)')+'"></span>Margem de contribuição</td><td>'+brl(lucro)+'</td><td>'+(m.venda>0?pct(margem):'–')+'</td>';
     tb.appendChild(tr);
     const bar=$('rBar'); bar.innerHTML='';
     const tot=Math.max(m.venda, m.venda-lucro);
@@ -588,7 +620,7 @@ details.cfg[open]{padding-bottom:18px}
     }
 
     // alvos
-    $('tgtLbl').textContent='Preço mínimo para '+pctS(m.limOk)+' de lucro';
+    $('tgtLbl').textContent='Preço mínimo para '+pctS(m.limOk)+' de margem';
     const fmtAlvo = T => !isFinite(T) ? '–' : m.unitMode ? (m.q>0?brl(T/m.q)+' /un':'–') : brl(T)+(m.q>0?' ('+brl(T/m.q)+' /un)':'');
     $('tgtVal').textContent=fmtAlvo(tgtTot); $('beVal').textContent=fmtAlvo(beTot);
     $('redLbl').textContent='Preço mínimo para sair do vermelho ('+pctS(m.limBad)+')'; $('redVal').textContent=fmtAlvo(redTot);
@@ -604,7 +636,7 @@ details.cfg[open]{padding-bottom:18px}
   $('btnNovo').addEventListener('click',()=>{
     if(state.tab==='s'){
       ['s_nome','s_parceiro','s_custo','s_qtd','s_preco','s_entrega'].forEach(id=>$(id).value='');
-      calc(); $('s_custo').focus();
+      $('s_viagem').value=''; $('s_markup').value='2'; calc(); $('s_custo').focus();
     } else {
       ['nome','custo','qtd','preco','frete','motorista','outros','icmsReal','larg','alt'].forEach(id=>$(id).value='');
       $('ipi').value='0'; $('galvo').value='0'; $('apl').value='1'; calc(); $('custo').focus();
@@ -621,7 +653,7 @@ details.cfg[open]{padding-bottom:18px}
       ...m.fixos.slice(1).filter(r=>r[2]>0.005).map(r=>r[1]+': '+brl(r[2])),
       'Comissão: '+brl(L.comissao)+' · '+m.impNome+': '+brl(L.imposto),
       'Pagamento: '+L.pagNome+(L.taxa>0?' · Taxa do cartão: '+brl(L.taxa):''),
-      'Lucro real: '+brl(L.lucro)+' ('+pct(L.margem)+') · '+L.pill
+      'Margem de contribuição: '+brl(L.lucro)+' ('+pct(L.margem)+') · '+L.pill
     ];
     const txt=lines.join('\n');
     const done=msg=>{ $('toast').textContent=msg; setTimeout(()=>$('toast').textContent='',2400); };
