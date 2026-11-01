@@ -228,7 +228,7 @@ details.cfg[open]{padding-bottom:18px}
                 <button type="button" data-v="markup">Markup</button>
                 <button type="button" data-v="preco">Preço un.</button>
               </div>
-              <div id="fMarkup-b"><div class="inp"><input id="markup" inputmode="decimal" aria-label="Markup sobre o produto"><span class="suf">×</span></div></div>
+              <div id="fMarkup-b"><div class="inp"><input id="markup" inputmode="decimal" placeholder="ex.: 2" aria-label="Markup sobre o produto"><span class="suf">vezes</span></div></div>
               <div id="fPreco-b" hidden><div class="inp"><span>R$</span><input id="preco" inputmode="decimal" aria-label="Preço de venda unitário"></div></div>
             </div>
           </div>
@@ -322,7 +322,7 @@ details.cfg[open]{padding-bottom:18px}
                 <button type="button" data-v="markup">Markup</button>
                 <button type="button" data-v="preco">Preço total</button>
               </div>
-              <div id="fMarkup-s"><div class="inp"><input id="s_markup" inputmode="decimal" aria-label="Markup sobre o custo do parceiro"><span class="suf">×</span></div></div>
+              <div id="fMarkup-s"><div class="inp"><input id="s_markup" inputmode="decimal" placeholder="ex.: 2" aria-label="Markup sobre o custo do parceiro"><span class="suf">vezes</span></div></div>
               <div id="fPreco-s" hidden><div class="inp"><span>R$</span><input id="s_preco" inputmode="decimal" aria-label="Preço de venda do pedido"></div></div>
             </div>
             <div class="f"><label for="s_qtd">Quantidade (opcional)</label><div class="inp"><input id="s_qtd" inputmode="numeric" placeholder="em branco"><span class="suf">un</span></div></div>
@@ -524,7 +524,7 @@ details.cfg[open]{padding-bottom:18px}
     const precoUn = st.modo==='markup' ? custoUn*num('markup') : num('preco');
     $('modoHint-b').innerHTML = st.modo==='markup'
       ? ''
-      : (custoUn>0&&precoUn>0 ? 'Markup equivalente: <b>'+(precoUn/custoUn).toLocaleString('pt-BR',{maximumFractionDigits:2})+'×</b>' : '');
+      : (custoUn>0&&precoUn>0 ? 'Markup equivalente: <b>'+(precoUn/custoUn).toLocaleString('pt-BR',{maximumFractionDigits:2})+' vezes</b>' : '');
     return {t:'b',nome:$('nome').value||'Produto',q,unitMode:true,venda:precoUn*q,precoUn,
       fixos:[['produto','Produto'+(num('ipi')>0?' (com IPI)':''),produto],['icms','ICMS antecipado',icms],['pers',persNome,pers],['pedido','Frete, motorista'+(uber?', Uber':'')+' e outros',pedido]],
       com:num('b_comissao'),imp:num('b_imp'),impNome:'Imposto da venda',pag:st.pag,limBad:num('b_limBad'),limOk:num('b_limOk'),
@@ -538,7 +538,7 @@ details.cfg[open]{padding-bottom:18px}
     const venda = st.modo==='markup' ? parceiro*num('s_markup') : num('s_preco');
     $('modoHint-s').innerHTML = st.modo==='markup'
       ? ''
-      : (parceiro>0&&venda>0 ? 'Markup equivalente: <b>'+(venda/parceiro).toLocaleString('pt-BR',{maximumFractionDigits:2})+'×</b>' : '');
+      : (parceiro>0&&venda>0 ? 'Markup equivalente: <b>'+(venda/parceiro).toLocaleString('pt-BR',{maximumFractionDigits:2})+' vezes</b>' : '');
     const parc = $('s_parceiro').value.trim();
     return {t:'s',nome:$('s_nome').value||'Serviço',q,unitMode:false,venda,precoUn:q>0?venda/q:0,
       fixos:[['parceiro','Parceiro'+(parc?' ('+parc+')':''),parceiro],['logist','Uber, motoboy e entrega',logist]],
