@@ -435,8 +435,8 @@ details.cfg[open]{padding-bottom:18px}
 
   // Exemplos que aparecem ao abrir (não são dados reais)
   const EXEMPLO = {
-    nome:'',custo:'',qtd:'',ipi:'0',galvo:'0',larg:'5',alt:'3',apl:'1',perda:'10',uber:'10',
-    frete:'',motorista:'',outros:'0',icmsReal:'0',markup:'',preco:'',
+    nome:'',custo:'',qtd:'',ipi:'',galvo:'',larg:'5',alt:'3',apl:'1',perda:'10',uber:'10',
+    frete:'',motorista:'',outros:'',icmsReal:'',markup:'',preco:'',
     s_nome:'',s_parceiro:'',s_custo:'',s_qtd:'',s_viagem:'',s_entrega:'',s_markup:'2',s_preco:''
   };
   // Configurações salvas no navegador
@@ -639,7 +639,7 @@ details.cfg[open]{padding-bottom:18px}
       $('s_viagem').value=''; $('s_markup').value='2'; calc(); $('s_custo').focus();
     } else {
       ['nome','custo','qtd','preco','frete','motorista','outros','icmsReal','larg','alt'].forEach(id=>$(id).value='');
-      $('ipi').value='0'; $('galvo').value='0'; $('apl').value='1'; calc(); $('custo').focus();
+      $('ipi').value=''; $('galvo').value=''; $('apl').value='1'; calc(); $('custo').focus();
     }
   });
 
