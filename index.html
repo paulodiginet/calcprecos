@@ -437,7 +437,7 @@ details.cfg[open]{padding-bottom:18px}
   const EXEMPLO = {
     nome:'',custo:'',qtd:'',ipi:'',galvo:'',larg:'5',alt:'3',apl:'1',perda:'10',uber:'10',
     frete:'',motorista:'',outros:'',icmsReal:'',markup:'',preco:'',
-    s_nome:'',s_parceiro:'',s_custo:'',s_qtd:'',s_viagem:'',s_entrega:'',s_markup:'2',s_preco:''
+    s_nome:'',s_parceiro:'',s_custo:'',s_qtd:'',s_viagem:'',s_entrega:'',s_markup:'',s_preco:''
   };
   // Configurações salvas no navegador
   const CFG_DEF = {b_comissao:'5',b_imp:'7',b_limBad:'10',b_limOk:'20',s_comissao:'5',s_imp:'10',s_limBad:'15',s_limOk:'25',icmsPct:'4',
@@ -636,7 +636,7 @@ details.cfg[open]{padding-bottom:18px}
   $('btnNovo').addEventListener('click',()=>{
     if(state.tab==='s'){
       ['s_nome','s_parceiro','s_custo','s_qtd','s_preco','s_entrega'].forEach(id=>$(id).value='');
-      $('s_viagem').value=''; $('s_markup').value='2'; calc(); $('s_custo').focus();
+      $('s_viagem').value=''; $('s_markup').value=''; calc(); $('s_custo').focus();
     } else {
       ['nome','custo','qtd','preco','frete','motorista','outros','icmsReal','larg','alt'].forEach(id=>$(id).value='');
       $('ipi').value=''; $('galvo').value=''; $('apl').value='1'; calc(); $('custo').focus();
